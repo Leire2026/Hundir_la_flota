@@ -1,7 +1,7 @@
 import numpy as np
 import random
 
-BARCOS = [5]
+BARCOS = [5, 4, 3, 3, 3, 2]
 
 def crear_tablero():
     return np.zeros((10, 10), dtype=int)
