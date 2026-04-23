@@ -1,10 +1,12 @@
-from Mi_trabajo.Python.hlf_Leire2.Hundir_la_flota.utils import *
+from utils import crear_tablero, mostrar_tablero, disparar, quedan_barcos, turno_jugador, turno_maquina, juego
 
-print("Bienvenido. Vamos a jugar una partida de Hundir la Flota. ¡Adelante!")
+BARCOS = [5]
 
-BARCOS = [4]
+def main():
+    print("BIENVENIDO. VAMOS A JUGAR A HUNDIR LA FLOTA. ¡ADELANTE!")
+    juego()
 
 
-#if __name__ == "__main__":
-juego()
+if __name__ == "__main__":
+    main()
 

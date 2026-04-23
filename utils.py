@@ -1,10 +1,11 @@
 import numpy as np
 import random
+
 BARCOS = [5]
 
 def crear_tablero():
     return np.zeros((10, 10), dtype=int)
-    
+
 
 def colocar_barcos(tablero):
     for tamaño in BARCOS:
@@ -23,7 +24,6 @@ def colocar_barcos(tablero):
                 if np.all(tablero[fila:fila+tamaño, col] == 0):
                     tablero[fila:fila+tamaño, col] = 1
                     colocado = True
-
 
 def mostrar_tablero(tablero, oculto=True):
     for fila in tablero:
@@ -46,29 +46,28 @@ def mostrar_tablero(tablero, oculto=True):
 def disparar(tablero, fila, col):
     if tablero[fila, col] == 1:
         tablero[fila, col] = 2
-        return "Tocado"
+        return "¡TOCADO! X"
     elif tablero[fila, col] == 0:
         tablero[fila, col] = -1
-        return "Agua"
+        return "¡AGUA! ~~"
     else:
-        return "Ya disparaste ahí"
-
+        return "¡YA DISPARASTE AHÍ!"
 
 def quedan_barcos(tablero):
     return np.any(tablero == 1)
 
+
 def turno_jugador(tablero_maquina):
     while True:
         try:
-            fila = int(input("Fila (0-9): "))
-            col = int(input("Columna (0-9): "))
+            fila = int(input("DISPARA:introduce valor de la fila (0-9): "))
+            col = int(input("DISPARA: introduce el valor de la columna (0-9): "))
             resultado = disparar(tablero_maquina, fila, col)
             print(resultado)
-            if resultado != "Ya disparaste ahí":
+            if resultado != "YA DISPARASTE AHÍ":
                 break
         except:
-            print("Entrada inválida")
-
+            print("ENTRADA INVALIDA, EL VALOR TIENE QUE SER UN NÚMERO ENTRE 0 Y 9")
 
 def turno_maquina(tablero_jugador):
     while True:
@@ -76,30 +75,39 @@ def turno_maquina(tablero_jugador):
         col = random.randint(0, 9)
         if tablero_jugador[fila, col] in [0, 1]:
             resultado = disparar(tablero_jugador, fila, col)
-            print(f"Máquina dispara a ({fila},{col}): {resultado}")
+            print(f"MAQUINA DISPARA A({fila},{col}): {resultado}")
             break
 
 def juego():
     jugador = crear_tablero()
     maquina = crear_tablero()
-
+    
     colocar_barcos(jugador)
     colocar_barcos(maquina)
 
     while True:
-        print("Tu tablero:")
+        print("_______________________")
+        print("TU TABLERO:")
         mostrar_tablero(jugador, oculto=False)
 
-        print("Tablero enemigo:")
+        print("_______________________")
+        print("TABLERO ENEMIGO:")
         mostrar_tablero(maquina, oculto=True)
 
         turno_jugador(maquina)
         if not quedan_barcos(maquina):
-            print("¡Ganaste!")
-            break
+            print("_______________________")
+            print("                        ")
+            print("¡GANASTE!")
+            break   
 
         turno_maquina(jugador)
         if not quedan_barcos(jugador):
-            print("¡Perdiste!")
+            print("_____________________")
+            print("                        ")
+            print("¡PERDISTE!")
             break
+    print("_______________________")
+    print("                        ")
+    print("¡GRACIAS POR JUGAR!")
 
